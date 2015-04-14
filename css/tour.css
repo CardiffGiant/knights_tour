@@ -8,10 +8,10 @@ h2 {
    font-family: arial;
 }
 #gameTable {
-   width: 620px;
-   height: 620px;
+   width: 610px;
+   height: 610px;
    margin: 40px auto;
-   background-color: #59983b;
+   background-color: #00A550;
    border-radius: 10px;
    overflow: hidden;
 }
@@ -19,7 +19,7 @@ h2 {
    display: flex;
    width: 560px;
    height: 560px;
-   margin: 30px;
+   margin: 25px;
    padding: 0;
 }
 .even, .odd {
@@ -43,5 +43,21 @@ li {
    line-height: 60px;
 }
 .visited {
+   
+}
+.hasImage {
    background-image:url(../assets/mark.png);
+}
+.isLast {
+   background-image:url(../assets/stop.png);
+}
+.isStart {
+   background-image:url(../assets/start.png);
+}
+#move {
+   width: 100px;
+   height: 30px;
+   display: block;
+   font-family: arial;
+   margin: 5px auto;
 }

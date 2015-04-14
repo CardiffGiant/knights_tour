@@ -1,4 +1,7 @@
-
+var currentPosition;
+var listOfMoves = [];
+var curr = 0;
+var tour;
 var gameTable = {
    dimension: 8,
    table: document.getElementById("gameTable"),
@@ -11,7 +14,7 @@ var gameTable = {
       var board = document.createElement("ul");
       board.setAttribute("id", "board");
       for (var j=0; j<dimension; j+=1) {
-         var row = this.buildRow(dimension);
+         var row = this.buildRow(dimension, j);
          if(j%2===0) {
             row.setAttribute("class", "even");
          } else {
@@ -22,10 +25,11 @@ var gameTable = {
       return board;
    },
    
-   buildRow: function(dimension) {
+   buildRow: function(dimension, rowIndex) {
       var row = document.createElement("ul");
       for (var k=0; k < dimension; k+=1) {
          var square = document.createElement("li");
+         square.setAttribute("id",rowIndex +"_"+ k);
          gameTable.setEvent(square);
          row.appendChild(square);
       }
@@ -36,9 +40,99 @@ var gameTable = {
    },
    visited: function(listItem) {
       listItem.setAttribute("class", "visited");
+   },
+   clear: function() {
+      var squares = document.getElementsByTagName("li");
+      for(var i=0; i<squares.length; i+=1) {
+         squares[i].setAttribute("class","");
+      }
    }
 }
-
+function setCurrentPosition(x,y) {
+   currentPosition = [x,y];
+   console.log(currentPosition);
+}
+function setStart() {
+   var startX, startY;
+   startX = Math.floor(Math.random() * 8);
+   startY = Math.floor(Math.random() * 8);
+   gameTable.visited(document.getElementById(startX+"_"+startY));
+   var start = "x: " + startX + "   " + "y: " + startY
+   setCurrentPosition(startX, startY);
+   listOfMoves[0] = currentPosition;
+}
+function isLegal(move) {
+   var current = currentPosition;
+   var possible = [current[0]+move[0],current[1]+move[1]];
+   if (possible[0]<8 && possible[0]>=0 && possible[1]<8 && possible[1]>=0) {
+      return (document.getElementById(possible[0]+"_"+possible[1]).className!=="visited");
+   }
+   return false;
+}
+function getMove() {
+   var legalMoves = [], i, move;
+   for (i=0; i<MOVES.length; i+=1) {
+      if(isLegal(MOVES[i])) {
+         legalMoves.push(MOVES[i]);
+      }
+   }
+   if(legalMoves.length > 0) {
+      console.log("legal moves: " + legalMoves);
+      move = Math.floor(Math.random() * legalMoves.length);
+      console.log("making move: " + MOVES[move]);
+   } else {
+      console.log("no more legal moves.");
+      
+      return false;
+   }
+   moveKnight(legalMoves[move]);
+   return true;
+}
+function moveKnight(move) {
+   var newX = currentPosition[0]+move[0];
+   var newY = currentPosition[1]+move[1];
+   currentPosition = [newX,newY];
+   gameTable.visited(document.getElementById(currentPosition[0]+"_"+currentPosition[1]));
+   listOfMoves.push(currentPosition);
+   console.log("current position: " + currentPosition);
+}
+function runTour() {
+   if (listOfMoves.length > 0) {
+      listOfMoves = [];
+      curr = 0;
+      gameTable.clear();
+      setStart();
+   }
+   var test = true;
+   while(test) {
+      test = getMove();
+   }
+   showTour();
+}
+function showTour() {
+   tour = setInterval(function(){setImage();},300);
+}
+function setImage() {
+   if(curr === 0) {
+      document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]).setAttribute("class","isStart");
+      curr +=1;
+   }
+   if(curr === listOfMoves.length-1) {
+      document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]).setAttribute("class","isLast");
+      curr +=1;
+   }
+   if(curr < listOfMoves.length) {
+      document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]).setAttribute("class","hasImage");
+      curr +=1;
+   } else {
+      clearInterval(tour);
+   }
+   
+}
 window.onload = function() {
    gameTable.setBoard();
+   setStart();
+   document.getElementById("move").addEventListener("click",runTour);
 };
+
+var MOVES = [[2,1],[1,2],[-1,2],[-1,-2],[-2,1],[-2,-1],[1,-2],[2,-1]];
