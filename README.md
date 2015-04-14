@@ -1,0 +1,1 @@
+Rework of the knight's tour problem in javascript.
