@@ -63,10 +63,10 @@ function setStart() {
    listOfMoves[0] = currentPosition;
 }
 function isLegal(move) {
-   var current = currentPosition;
-   var possible = [current[0]+move[0],current[1]+move[1]];
-   if (possible[0]<8 && possible[0]>=0 && possible[1]<8 && possible[1]>=0) {
-      return (document.getElementById(possible[0]+"_"+possible[1]).className!=="visited");
+   var current = currentPosition, squareToCheck = [];
+   squareToCheck = [current[0]+move[0],current[1]+move[1]];
+   if (squareToCheck[0]<8 && squareToCheck[0]>=0 && squareToCheck[1]<8 && squareToCheck[1]>=0) {
+      return (document.getElementById(squareToCheck[0]+"_"+squareToCheck[1]).className!=="visited");
    }
    return false;
 }
