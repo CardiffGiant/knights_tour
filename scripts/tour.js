@@ -110,19 +110,24 @@ function runTour() {
    showTour();
 }
 function showTour() {
+   console.log("current: " + curr);
    tour = setInterval(function(){setImage();},300);
 }
 function setImage() {
+   var target = document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]);
    if(curr === 0) {
-      document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]).setAttribute("class","isStart");
+      target.setAttribute("class","isStart");
+      target.innerText = curr;
       curr +=1;
    }
    if(curr === listOfMoves.length-1) {
-      document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]).setAttribute("class","isLast");
+      target.setAttribute("class","isLast");
+      target.innerText = curr;
       curr +=1;
    }
    if(curr < listOfMoves.length) {
-      document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]).setAttribute("class","hasImage");
+      target.setAttribute("class","hasImage");
+      target.innerText = curr;
       curr +=1;
    } else {
       clearInterval(tour);

@@ -40,7 +40,10 @@ li {
    padding: 0;
    display: block;
    text-align: center;
-   line-height: 60px;
+   line-height: 70px;
+   font-size: 1.5em;
+   font-family: arial;
+   color: #1e90ff;
 }
 .visited {
    
