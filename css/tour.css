@@ -1,19 +1,54 @@
+@font-face {
+   font-family: mainFont;
+   src: url(cabin-medium.otf);
+}
+
 body {
    background-color: #222222;
+   margin: 0;
+   padding: 0;
+   font-family: mainFont;
 }
 h2 {
    text-align: center;
-   color: white;
+   color: #34495e;
    font-size: 1.9em;
-   font-family: arial;
+   height: 50px;
+   margin: 0;
+   padding: 0;
+   padding-top: 10px;
+   background-color: #ecf0f1;
+}
+#window {
+   display: flex;
+   flex-direction: horizontal;
+   width: 900px;
+   height: 620px;
+   margin: 40px auto;
 }
 #gameTable {
    width: 610px;
    height: 610px;
-   margin: 40px auto;
-   background-color: #00A550;
-   border-radius: 10px;
+   margin: 0 auto;
+   background-color: #34495e;
+   //border-radius: 10px;
    overflow: hidden;
+}
+#rightPanel {
+   width: 250px;
+   height: 610px;
+   margin-left: 20px;
+   background-color: #34495e;
+   //border-radius: 10px;
+}
+
+span, #checkboxes {
+   display: block;
+   margin-left: 20px;
+   margin-top: 20px;
+   color: white;
+   font-size: 1.2em;
+   line-height: 20px;
 }
 #board {
    display: flex;
@@ -28,10 +63,10 @@ h2 {
    margin: 0;
 }
 .odd li:nth-child(odd), .even li:nth-child(even) {
-   background-color: white;
+   background-color: #ecf0f1;
 }
 .odd li:nth-child(even), .even li:nth-child(odd) {
-   background-color: black;
+   background-color: #222222;
 }
 li {
    width: 70px;
@@ -42,25 +77,25 @@ li {
    text-align: center;
    line-height: 70px;
    font-size: 1.5em;
-   font-family: arial;
-   color: #1e90ff;
-}
-.visited {
-   
 }
 .hasImage {
    background-image:url(../assets/mark.png);
+   color: #f39c12;
 }
 .isLast {
    background-image:url(../assets/stop.png);
+   color: #c0392b;
 }
 .isStart {
    background-image:url(../assets/start.png);
+   color: #27ae60;
 }
 #move {
-   width: 100px;
+   //width: 200px;
+   padding: 5px 20px;
    height: 30px;
    display: block;
-   font-family: arial;
-   margin: 5px auto;
+   font-size: 1.1em;
+   margin: 15px auto;
+   color: #34495e;
 }

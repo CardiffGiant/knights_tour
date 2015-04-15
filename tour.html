@@ -7,9 +7,24 @@
 <body>
    <h2>The Knight's Tour</h2>
    <div id="window">
-      <div id="gameTable">
-      </div><!--end chessboard-->
-      <button id="move">Move</button>
+      <div id="leftPanel">
+         <div id="gameTable">
+         </div><!--end gameTable-->
+         <button id="move">Move</button>
+      </div><!--end leftPanel-->
+      <div id="rightPanel">
+         <span id="checkboxes">
+            <label>Move Selection</label><br>
+            <input type="checkbox" checked="true">Random</input><br>
+            <input type="checkbox" disabled="true">Heuristic</input>
+         </span>
+         <span>
+            <label for="checked">Moves Checked: </label>
+            <output id="checked"></output><br>
+            <label for="totalMoves">Total Moves: </label>
+            <output id="totalMoves"></output>
+         </span>
+      </div><!--end rightPanel-->
    </div><!--end window-->
 </body>
 <script src="scripts/tour.js"></script>

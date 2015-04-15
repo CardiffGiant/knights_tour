@@ -1,5 +1,6 @@
 var currentPosition;
 var listOfMoves = [];
+var totalMovesChecked = 0;
 var curr = 0;
 var tour;
 var gameTable = {
@@ -47,6 +48,7 @@ var gameTable = {
          squares[i].setAttribute("class","");
          squares[i].innerText = "";
       }
+      totalMovesChecked = 0;
    }
 }
 function setCurrentPosition(x,y) {
@@ -65,6 +67,7 @@ function setStart() {
 function isLegal(move) {
    var current = currentPosition, squareToCheck = [];
    squareToCheck = [current[0]+move[0],current[1]+move[1]];
+   totalMovesChecked += 1;
    if (squareToCheck[0]<8 && squareToCheck[0]>=0 && squareToCheck[1]<8 && squareToCheck[1]>=0) {
       return (document.getElementById(squareToCheck[0]+"_"+squareToCheck[1]).className!=="visited");
    }
@@ -138,7 +141,8 @@ function setImage() {
    } else {
       clearInterval(tour);
       document.getElementById("move").disabled = false;
-      
+      document.getElementById("totalMoves").innerText = (listOfMoves.length-1);
+      document.getElementById("checked").innerText = totalMovesChecked;
    }
 }
 window.onload = function() {
