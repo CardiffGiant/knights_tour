@@ -45,6 +45,7 @@ var gameTable = {
       var squares = document.getElementsByTagName("li");
       for(var i=0; i<squares.length; i+=1) {
          squares[i].setAttribute("class","");
+         squares[i].innerText = "";
       }
    }
 }
@@ -107,6 +108,8 @@ function runTour() {
    while(test) {
       test = getMove();
    }
+   document.getElementById("move").innerText = "Clear and ReTour";
+   document.getElementById("move").disabled = true;
    showTour();
 }
 function showTour() {
@@ -114,25 +117,29 @@ function showTour() {
    tour = setInterval(function(){setImage();},300);
 }
 function setImage() {
-   var target = document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]);
-   if(curr === 0) {
-      target.setAttribute("class","isStart");
-      target.innerText = curr;
-      curr +=1;
-   }
-   if(curr === listOfMoves.length-1) {
-      target.setAttribute("class","isLast");
-      target.innerText = curr;
-      curr +=1;
-   }
+   console.log("in setImage, current is: " + curr);
+   var target;
+   
    if(curr < listOfMoves.length) {
-      target.setAttribute("class","hasImage");
-      target.innerText = curr;
-      curr +=1;
+      target = document.getElementById(listOfMoves[curr][0]+"_"+listOfMoves[curr][1]);
+      if(curr === 0) {
+         target.setAttribute("class","isStart");
+         target.innerText = curr;
+         curr +=1;
+      } else if(curr === listOfMoves.length-1) {
+         target.setAttribute("class","isLast");
+         target.innerText = curr;
+         curr +=1;
+      } else {
+         target.setAttribute("class","hasImage");
+         target.innerText = curr;
+         curr +=1;
+      }
    } else {
       clearInterval(tour);
+      document.getElementById("move").disabled = false;
+      
    }
-   
 }
 window.onload = function() {
    gameTable.setBoard();
